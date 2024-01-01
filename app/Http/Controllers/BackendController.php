@@ -13,6 +13,11 @@ class BackendController extends Controller
         $data=compact('employees');
         return view('employee_dashboard')->with($data);
     }
+    public function trash_dashboard(){
+        $employees=Employee::onlyTrashed()->get();
+        $data=compact('employees');
+        return view('employee_trash_dashboard')->with($data);
+    }
 
     public function store(Request $request){
         Employee::create($request->all());
@@ -20,9 +25,18 @@ class BackendController extends Controller
     }
 
     public function delete($id){
+        $employees=Employee::withTrashed()->find($id);
+        $employees->forceDelete();
+        return redirect('employee-dashboard')->with('delete','Employee Deleted Permenantely');
+    }
+    public function trash($id){
         $employees=Employee::find($id);
         $employees->delete();
-        return redirect('employee-dashboard')->with('delete','Employee Deleted');
+        return redirect('employee-dashboard')->with('trash','Moved To Trash');
+    }
+    public function restore($id){
+        $employees=Employee::withTrashed()->find($id)->restore();
+        return redirect('employee-dashboard')->with('restore','Employee Restored');
     }
     public function edit($id){
         $employees=Employee::find($id);

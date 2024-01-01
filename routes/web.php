@@ -33,9 +33,12 @@ Route::middleware('auth')->group(function () {
 Route::get('/add-employee',[FrontendController::class,'add']);
 Route::post('/store-employee',[BackendController::class,'store']);
 Route::get('/employee-dashboard',[BackendController::class,'dashboard']);
+Route::get('/employee-trash-dashboard',[BackendController::class,'trash_dashboard']);
 Route::get('/employee/edit/{id}',[BackendController::class,'edit']);
 Route::post('/employee/update/{id}',[BackendController::class,'update']);
 Route::get('/employee/delete/{id}',[BackendController::class,'delete']);
+Route::get('/employee/trash/{id}',[BackendController::class,'trash']);
+Route::get('/employee/restore/{id}',[BackendController::class,'restore']);
 Route::get('/employee/deleteAll',[BackendController::class,'deleteAll']);
 
 require __DIR__.'/auth.php';

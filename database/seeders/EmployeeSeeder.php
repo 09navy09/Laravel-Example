@@ -14,7 +14,7 @@ class EmployeeSeeder extends Seeder
     public function run(): void
     {
         $faker =\Faker\Factory::create();
-        for($i=0;$i<50;$i++)
+        for($i=0;$i<5;$i++)
         {
         Employee::create([
             'name'=>$faker->name,
